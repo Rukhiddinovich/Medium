@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_project/utils/colors.dart';
 
 import '../../../cubits/auth/auth/auth_cubit.dart';
 
@@ -14,8 +16,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Profile"),
+        backgroundColor: AppColors.C_6C63FF,
+        title: Text(
+          "Profile",
+          style: TextStyle(
+              fontSize: 24.sp,
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w500,
+              color: Colors.black),
+        ),
         actions: [
           IconButton(
               onPressed: () {

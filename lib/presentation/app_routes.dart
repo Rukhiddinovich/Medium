@@ -18,25 +18,26 @@ class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.splashScreen:
-        return MaterialPageRoute(builder: (context) => SplashScreen());
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case RouteNames.loginScreen:
         return MaterialPageRoute(builder: (context) {
-          return LoginScreen();
+          return const LoginScreen();
         });
 
       case RouteNames.registerScreen:
         return MaterialPageRoute(builder: (context) {
-          return RegisterScreen();
+          return const RegisterScreen();
         });
 
       case RouteNames.tabBox:
-        return MaterialPageRoute(builder: (context) => TabBox());
+        return MaterialPageRoute(builder: (context) => const TabBox());
 
       case RouteNames.confirmGmail:
         return MaterialPageRoute(
-            builder: (context) => GmailConfirmScreen(
-              userModel: settings.arguments as UserModel,
-            ));
+          builder: (context) => GmailConfirmScreen(
+            userModel: settings.arguments as UserModel,
+          ),
+        );
 
       default:
         return MaterialPageRoute(

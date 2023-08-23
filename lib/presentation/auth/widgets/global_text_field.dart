@@ -11,10 +11,11 @@ class GlobalTextField extends StatelessWidget {
     required this.textAlign,
     this.obscureText = false,
     this.maxLine = 1,
-    required this.controller,
+    required this.controller, required this.prefixIcon,
   }) : super(key: key);
 
   final String hintText;
+  final Icon prefixIcon;
   TextInputType keyboardType;
   TextInputAction textInputAction;
   TextAlign textAlign;
@@ -34,8 +35,9 @@ class GlobalTextField extends StatelessWidget {
               color: Colors.black.withOpacity(0.5),
               blurRadius: 6.r,
               offset: const Offset(5, 5),
-            )
-          ]),
+            ),
+          ],
+      ),
       child: TextField(
         maxLines: maxLine,
         style: TextStyle(
@@ -49,6 +51,7 @@ class GlobalTextField extends StatelessWidget {
         obscureText: obscureText,
         controller: controller,
         decoration: InputDecoration(
+          prefixIcon: prefixIcon,
           filled: true,
           fillColor: AppColors.white,
           hintText: hintText,

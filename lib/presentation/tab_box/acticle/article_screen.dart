@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_project/utils/colors.dart';
 
 class ArticlesScreen extends StatefulWidget {
   const ArticlesScreen({super.key});
@@ -11,8 +13,17 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Articles screen"),
+        backgroundColor: AppColors.C_6C63FF,
+        title: Text(
+          "Articles screen",
+          style: TextStyle(
+              fontSize: 24.sp,
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w500,
+              color: Colors.black),
+        ),
         actions: [
           IconButton(
             onPressed: () {},

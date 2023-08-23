@@ -120,7 +120,11 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
+import 'package:medium_project/utils/icons.dart';
 import '../../../cubits/auth/auth/auth_cubit.dart';
 import '../../../data/local/storage_repository/storage_repository.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
@@ -144,8 +148,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Login page"),
+        toolbarHeight: 0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+        backgroundColor: Colors.white,
       ),
       body: BlocConsumer<AuthCubit, AuthState>(
         builder: (context, state) {
@@ -154,50 +162,91 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           return ListView(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 10,
+              SizedBox(height: 20.h),
+              Column(
+                children: [
+                  Text(
+                    "Welcome Medium",
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF252525),
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
+                  Text(
+                    "Sign in to access your account",
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF252525),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 24),
+              Lottie.asset(AppImages.login),
               GlobalTextField(
-                hintText: "Gmail",
-                keyboardType: TextInputType.text,
+                hintText: "Enter email",
+                keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: gmailController,
+                prefixIcon: Icon(Icons.email),
               ),
+              SizedBox(height: 10.h),
               GlobalTextField(
                 hintText: "Password",
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: passwordController,
+                prefixIcon: Icon(Icons.password),
               ),
+              SizedBox(height: 60.h),
               GlobalButton(
-                  title: ("Login"),
-                  onTap: () {
-                    context.read<AuthCubit>().loginUser(
-                      gmail: gmailController.text,
-                      password: passwordController.text,
-                    );
-                  }),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, RouteNames.registerScreen);
+                title: ("Login"),
+                onTap: () {
+                  context.read<AuthCubit>().loginUser(
+                        gmail: gmailController.text,
+                        password: passwordController.text,
+                      );
                 },
-                child: Text(
-                  "Sign Up T:${StorageRepository.getString("token")}",
-                  style: const TextStyle(
-                      color: Color(0xFF4F8962),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800),
-                ),
+              ),
+              SizedBox(height: 10.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "New Member?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Poppins",
+                      fontSize: 18.sp,
+                      color: Color(0xFF252525),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, RouteNames.registerScreen);
+                    },
+                    child: Text(
+                      "Register Now:${StorageRepository.getString("token")}",
+                      style: TextStyle(
+                          color: Color(0xFF4F8962),
+                          fontSize: 18.sp,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
               ),
             ],
           );
         },
         listener: (context, state) {
-
           if (state is AuthLoggedState) {
             Navigator.pushReplacementNamed(context, RouteNames.tabBox);
           }

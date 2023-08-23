@@ -19,7 +19,7 @@ class GlobalButton extends StatelessWidget {
         height: 50.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
-          color: Color(0xFF4F8962),
+          color: AppColors.C_6C63FF,
         ),
         child: Center(
           child: Text(
@@ -28,7 +28,7 @@ class GlobalButton extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: AppColors.white,
               fontSize: 18.sp,
-              fontFamily: "LeagueSpartan",
+              fontFamily: "Poppins",
             ),
           ),
         ),

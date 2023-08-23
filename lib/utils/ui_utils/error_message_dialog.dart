@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../colors.dart';
 
 void showErrorMessage({
@@ -11,16 +12,23 @@ void showErrorMessage({
     context: context,
     builder: (BuildContext context) => AlertDialog(
       backgroundColor: Colors.white,
-      title: const Text(
+      title: Text(
         "Error",
-        style: TextStyle(fontWeight: FontWeight.w800),
+        style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.C_273032,
+            fontFamily: "Poppins"),
       ),
       content: Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.only(top: 10.h),
         child: Text(
           message,
-          style:
-          TextStyle(fontWeight: FontWeight.w500, color: AppColors.C_273032),
+          style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.C_273032,
+              fontFamily: "Poppins"),
         ),
       ),
       actions: [
@@ -29,7 +37,14 @@ void showErrorMessage({
             Navigator.of(context).pop();
           },
           isDefaultAction: true,
-          child: const Text("ok"),
+          child: Text(
+            "Ok",
+            style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.C_273032,
+                fontFamily: "Poppins"),
+          ),
         )
       ],
     ),
@@ -45,11 +60,14 @@ Future<void> showConfirmMessage({
     builder: (BuildContext context) => AlertDialog(
       backgroundColor: Colors.white,
       content: Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.only(top: 10.h),
         child: Text(
           message,
-          style:
-          TextStyle(fontWeight: FontWeight.w500, color: AppColors.C_273032),
+          style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.C_273032,
+              fontFamily: "Poppins"),
         ),
       ),
       actions: [
@@ -58,7 +76,14 @@ Future<void> showConfirmMessage({
             Navigator.of(context).pop();
           },
           isDefaultAction: true,
-          child: const Text("ok"),
+          child: Text(
+            "Ok",
+            style: TextStyle(
+              fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.C_273032,
+                fontFamily: "Poppins"),
+          ),
         )
       ],
     ),

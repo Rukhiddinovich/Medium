@@ -97,9 +97,14 @@
 //     );
 //   }
 // }
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
+import 'package:medium_project/utils/icons.dart';
 import '../../../cubits/auth/auth/auth_cubit.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../utils/colors.dart';
@@ -132,50 +137,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sign Up Page"),),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+        backgroundColor: Colors.white,
+      ),
       body: BlocConsumer<AuthCubit, AuthState>(builder: (context, state) {
         if (state is AuthLoadingState) {
           return const Center(child: CircularProgressIndicator());
         }
         return ListView(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 12),
+            SizedBox(height: 20.h),
+            Column(
+              children: [
+                Text(
+                  "Get Started",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF252525),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Text(
+                  "By creating a free account.",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF252525),
+                  ),
+                ),
+              ],
+            ),
+            Lottie.asset(AppImages.login, height: 310.h),
             GlobalTextField(
               hintText: "Username",
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               textAlign: TextAlign.start,
               controller: usernameController,
+              prefixIcon: const Icon(CupertinoIcons.person_alt_circle),
             ),
+            SizedBox(height: 10.h),
             GlobalTextField(
               hintText: "Contact",
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
               textAlign: TextAlign.start,
               controller: phoneController,
+              prefixIcon: const Icon(Icons.phone),
             ),
+            SizedBox(height: 10.h),
             GlobalTextField(
               hintText: "Gmail",
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               textAlign: TextAlign.start,
               controller: gmailController,
+              prefixIcon: const Icon(Icons.email),
             ),
+            SizedBox(height: 10.h),
             GlobalTextField(
               hintText: "Profession",
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               textAlign: TextAlign.start,
               controller: professionController,
+              prefixIcon: const Icon(CupertinoIcons.info_circle_fill),
             ),
+            SizedBox(height: 10.h),
             GlobalTextField(
               hintText: "Password",
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               textAlign: TextAlign.start,
               controller: passwordController,
+              prefixIcon: const Icon(Icons.password),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             GenderSelector(
               onMaleTap: () {
                 setState(() {
@@ -189,39 +233,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
               gender: gender,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
-              },
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                    color: Color(0xFF4F8962),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800),
-              ),
-            ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             GlobalButton(
-                title: "Register",
-                onTap: () {
-                  if (file != null &&
-                      usernameController.text.isNotEmpty &&
-                      phoneController.text.isNotEmpty &&
-                      gmailController.text.isNotEmpty &&
-                      professionController.text.isNotEmpty &&
-                      passwordController.text.length > 5) {
-                    context.read<AuthCubit>().sendCodeToGmail(
-                      gmailController.text,
-                      passwordController.text,
-                    );
-                  }
-                }),
-            TextButton(
-                onPressed: () {
-                  showBottomSheetDialog();
-                },
-                child: Text("Select image"))
+              title: "Register",
+              onTap: () {
+                if (file != null &&
+                    usernameController.text.isNotEmpty &&
+                    phoneController.text.isNotEmpty &&
+                    gmailController.text.isNotEmpty &&
+                    professionController.text.isNotEmpty &&
+                    passwordController.text.length > 5) {
+                  context.read<AuthCubit>().sendCodeToGmail(
+                        gmailController.text,
+                        passwordController.text,
+                      );
+                }
+              },
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already a member?",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "Poppins",
+                    fontSize: 18.sp,
+                    color: Color(0xFF252525),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, RouteNames.loginScreen);
+                  },
+                  child: const Text(
+                    "Log In",
+                    style: TextStyle(
+                        color: Color(0xFF4F8962),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    showBottomSheetDialog();
+                  },
+                  child: Text(
+                    "Select image",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                        fontSize: 18.sp,
+                        color: AppColors.C_252525),
+                  ),
+                ),
+                Icon(Icons.photo, size: 30.sp, color: AppColors.C_6C63FF)
+              ],
+            ),
           ],
         );
       }, listener: (context, state) {
@@ -256,13 +331,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: const EdgeInsets.all(24),
-          height: 200,
+          padding: EdgeInsets.all(24.r),
+          height: 200.h,
           decoration: BoxDecoration(
-            color: AppColors.C_162023,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
+            color: AppColors.C_6C63FF,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.r),
+              topRight: Radius.circular(16.r),
             ),
           ),
           child: Column(
@@ -272,16 +347,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   _getFromCamera();
                   Navigator.pop(context);
                 },
-                leading: const Icon(Icons.camera_alt),
-                title: const Text("Select from Camera"),
+                leading: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  "Select from Camera",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Poppins",
+                      fontSize: 18.sp,
+                      color: Colors.white),
+                ),
               ),
               ListTile(
                 onTap: () {
                   _getFromGallery();
                   Navigator.pop(context);
                 },
-                leading: const Icon(Icons.photo),
-                title: const Text("Select from Gallery"),
+                leading: const Icon(
+                  Icons.photo,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  "Select from Gallery",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Poppins",
+                      fontSize: 18.sp,
+                      color: Colors.white),
+                ),
               )
             ],
           ),
