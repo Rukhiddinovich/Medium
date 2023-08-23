@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import '../../utils/constants.dart';
+import '../models/article/article_model.dart';
 import '../models/universal_data.dart';
 import '../models/user/user_model.dart';
 
@@ -141,6 +142,29 @@ class ApiService {
 
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: response.data["data"]);
+      }
+      return UniversalData(error: "Other Error");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return UniversalData(error: e.response!.data["message"]);
+      } else {
+        return UniversalData(error: e.message!);
+      }
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+  Future<UniversalData> getArticles() async {
+    Response response;
+    try {
+      response = await _dio.get("/articles");
+      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        return UniversalData(
+            data: (response.data["data"] as List?)
+                ?.map((e) => ArticleModel.fromJson(e))
+                .toList() ??
+                []);
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {

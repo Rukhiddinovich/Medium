@@ -29,6 +29,12 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    debugPrint("adfasdfasdf");
+    super.initState();
+  }
+
+  @override
   void dispose() {
     pinController.dispose();
     focusNode.dispose();
@@ -108,11 +114,20 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
               SizedBox(height: 20.h),
               Lottie.asset(AppImages.confirm),
               SizedBox(height: 20.h),
+              Text(
+                "Enter the code you received",
+                style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.C_252525),
+              ),
+              SizedBox(height: 20.h),
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: Pinput(
                   length: 6,
-                  controller: pinController,
+                  controller: codeController,
                   focusNode: focusNode,
                   androidSmsAutofillMethod:
                       AndroidSmsAutofillMethod.smsUserConsentApi,
@@ -158,11 +173,11 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
                   ),
                 ),
               ),
-              // SizedBox(height: 50.h),
               const Spacer(),
               GlobalButton(
                 title: "Confirm",
                 onTap: () {
+                  debugPrint(codeController.text);
                   context.read<AuthCubit>().confirmGmail(codeController.text);
                 },
               ),
@@ -172,13 +187,12 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
         },
         listener: (context, state) {
           if (state is AuthConfirmCodeSuccessState) {
+            debugPrint("asdfghjuk");
             context.read<AuthCubit>().registerUser(widget.userModel);
           }
-
           if (state is AuthLoggedState) {
             Navigator.pushReplacementNamed(context, RouteNames.tabBox);
           }
-
           if (state is AuthErrorState) {
             showErrorMessage(message: state.errorText, context: context);
           }

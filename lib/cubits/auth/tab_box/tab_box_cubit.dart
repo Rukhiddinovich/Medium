@@ -1,15 +1,44 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medium_project/cubits/auth/tab_box/tab_box_state.dart';
-
+import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:medium_project/presentation/tab_box/acticle/article_screen.dart';
+import 'package:medium_project/presentation/tab_box/profile/profile_screen.dart';
+import 'package:meta/meta.dart';
+import '../../../data/models/article/article_model.dart';
+import '../../../data/models/universal_data.dart';
+import '../../../data/repository/auth_repository.dart';
+part 'tab_box_state.dart';
 
 class TabBoxCubit extends Cubit<TabBoxState> {
-  TabBoxCubit() : super(ProfileScreenState());
+  TabBoxCubit({required this.authRepository}) : super(TabBoxArticleState());
 
-  updateScreen({required int index}) {
-    if (index == 0) {
-      emit(ProfileScreenState());
+  final AuthRepository authRepository;
+
+  List<Widget> screens = [
+    ArticlesScreen(),
+    ProfileScreen(),
+  ];
+  int currentScreenIndex=0;
+
+  selectHomeState() {
+    emit(TabBoxArticleState());
+    currentScreenIndex=0;
+  }
+
+  selectProfileState() {
+    emit(TabBoxProfileState());
+    currentScreenIndex=1;
+  }
+
+  Future<void> getArticles() async {
+    emit(TabBoxLoadingState());
+    UniversalData universalData =
+    await authRepository.getArticles();
+    if (universalData.error.isEmpty) {
+      emit(TabBoxSuccessState(articles: universalData.data as List<ArticleModel>));
     } else {
-      emit(LoginScreenState());
+      emit(
+        TabBoxErrorState(errorText: universalData.error),
+      );
     }
   }
 }

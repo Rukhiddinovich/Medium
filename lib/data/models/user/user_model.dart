@@ -61,14 +61,14 @@ class UserModel {
   }
 
   Future<FormData> getFormData(XFile file) async {
+    XFile file = XFile(avatar);
     String fileName = file.path.split("/").last;
     return FormData.fromMap({
       "username": username,
       "contact": contact,
-      "email": email,
+      "gmail": email,
       "password": password,
       "profession": profession,
-      "role": role,
       "gender": gender,
       "avatar": await MultipartFile.fromFile(file.path, filename: fileName),
     });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_project/utils/colors.dart';
@@ -18,21 +19,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: AppColors.C_6C63FF),
         backgroundColor: AppColors.C_6C63FF,
         title: Text(
           "Profile",
           style: TextStyle(
               fontSize: 24.sp,
               fontFamily: "Poppins",
-              fontWeight: FontWeight.w500,
-              color: Colors.black),
+              fontWeight: FontWeight.w600,
+              color: Colors.white),
         ),
+        centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                BlocProvider.of<AuthCubit>(context).logOut();
-              },
-              icon: Icon(Icons.logout))
+            onPressed: () {
+              BlocProvider.of<AuthCubit>(context).logOut();
+            },
+            icon: const Icon(Icons.logout_outlined, color: AppColors.white),
+          ),
         ],
       ),
     );

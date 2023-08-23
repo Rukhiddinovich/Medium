@@ -159,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontFamily: "Poppins",
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF252525),
+                    color: const Color(0xFF252525),
                   ),
                 ),
                 SizedBox(height: 5.h),
@@ -169,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontFamily: "Poppins",
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF252525),
+                    color: const Color(0xFF252525),
                   ),
                 ),
               ],
@@ -260,7 +260,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w600,
                     fontFamily: "Poppins",
                     fontSize: 18.sp,
-                    color: Color(0xFF252525),
+                    color: const Color(0xFF252525),
                   ),
                 ),
                 TextButton(
@@ -268,11 +268,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.pushReplacementNamed(
                         context, RouteNames.loginScreen);
                   },
-                  child: const Text(
+                  child: Text(
                     "Log In",
                     style: TextStyle(
-                        color: Color(0xFF4F8962),
-                        fontSize: 18,
+                        fontFamily: "Poppins",
+                        color: AppColors.C_6C63FF,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w800),
                   ),
                 ),

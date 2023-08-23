@@ -36,7 +36,7 @@ class App extends StatelessWidget {
               create: (context) =>
                   AuthCubit(authRepository: context.read<AuthRepository>()),
               lazy: true),
-          BlocProvider(create: (context) => TabBoxCubit(), lazy: true)
+          BlocProvider(create: (context) => TabBoxCubit(authRepository: context.read<AuthRepository>(),), lazy: true)
         ],
         child: const MyApp(),
       ),

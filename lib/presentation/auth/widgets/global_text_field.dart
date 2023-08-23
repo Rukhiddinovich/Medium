@@ -59,7 +59,7 @@ class GlobalTextField extends StatelessWidget {
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: Colors.grey,
-              fontFamily: "DMSans"),
+              fontFamily: "Poppins"),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide(width: 1.w, color: AppColors.white),

@@ -38,4 +38,8 @@ class AuthRepository {
 
   Future<void> setToken(String newToken) async =>
       StorageRepository.putString("token", newToken);
+
+  Future<UniversalData> getArticles()async{
+    return apiService.getArticles();
+  }
 }

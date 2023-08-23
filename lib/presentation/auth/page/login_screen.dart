@@ -124,6 +124,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:medium_project/utils/colors.dart';
 import 'package:medium_project/utils/icons.dart';
 import '../../../cubits/auth/auth/auth_cubit.dart';
 import '../../../data/local/storage_repository/storage_repository.dart';
@@ -171,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontFamily: "Poppins",
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF252525),
+                      color: const Color(0xFF252525),
                     ),
                   ),
                   SizedBox(height: 5.h),
@@ -181,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontFamily: "Poppins",
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF252525),
+                      color: const Color(0xFF252525),
                     ),
                   ),
                 ],
@@ -193,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: gmailController,
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email),
               ),
               SizedBox(height: 10.h),
               GlobalTextField(
@@ -202,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: passwordController,
-                prefixIcon: Icon(Icons.password),
+                prefixIcon: const Icon(Icons.password),
               ),
               SizedBox(height: 60.h),
               GlobalButton(
@@ -224,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w600,
                       fontFamily: "Poppins",
                       fontSize: 18.sp,
-                      color: Color(0xFF252525),
+                      color: const Color(0xFF252525),
                     ),
                   ),
                   TextButton(
@@ -235,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       "Register Now:${StorageRepository.getString("token")}",
                       style: TextStyle(
-                          color: Color(0xFF4F8962),
+                          color: AppColors.C_6C63FF,
                           fontSize: 18.sp,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w600),
