@@ -75,6 +75,7 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
           }
           return Column(
             children: [
+              SizedBox(height: 20.h),
               Text(
                 "Almost there",
                 style: TextStyle(
@@ -134,9 +135,6 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
                   listenForMultipleSmsOnAndroid: true,
                   defaultPinTheme: defaultPinTheme,
                   separatorBuilder: (index) => SizedBox(width: 8.w),
-                  // validator: (value) {
-                  //   return value == '222222' ? null : 'Pin is incorrect';
-                  // },
                   hapticFeedbackType: HapticFeedbackType.lightImpact,
                   onCompleted: (pin) {
                     debugPrint('onCompleted: $pin');

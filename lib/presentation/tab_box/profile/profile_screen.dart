@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_project/presentation/app_routes.dart';
 import 'package:medium_project/utils/colors.dart';
 
 import '../../../cubits/auth/auth/auth_cubit.dart';
@@ -35,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             onPressed: () {
               BlocProvider.of<AuthCubit>(context).logOut();
+              Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
             },
             icon: const Icon(Icons.logout_outlined, color: AppColors.white),
           ),

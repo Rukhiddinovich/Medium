@@ -3,6 +3,7 @@ const String adminEmail = "admin@gmail.com";
 const defaultImageConstant = "Select Image";
 
 const baseUrl = "http://159.89.98.34:5545/";
+const baseUrlForImage = "http://159.89.98.34:5545";
 
 
 class TimeOutConstants {
