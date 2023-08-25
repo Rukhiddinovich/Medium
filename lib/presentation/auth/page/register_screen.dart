@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:medium_project/utils/icons.dart';
-import '../../../cubits/auth/auth/auth_cubit.dart';
+import '../../../cubits/cubits/auth/auth_cubit.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
@@ -195,7 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: passwordController,
-                prefixIcon: const Icon(Icons.password),
+                prefixIcon: const Icon(Icons.key_outlined),
               ),
               SizedBox(height: 20.h),
               GenderSelector(

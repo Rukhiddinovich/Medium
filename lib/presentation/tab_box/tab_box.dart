@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_project/utils/colors.dart';
-import '../../cubits/auth/tab_box/tab_box_cubit.dart';
+import '../../cubits/cubits/tab_box/tab_box_cubit.dart';
 
 class TabBox extends StatefulWidget {
   const TabBox({super.key});

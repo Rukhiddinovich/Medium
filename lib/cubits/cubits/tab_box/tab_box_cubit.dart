@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:medium_project/presentation/tab_box/acticle/article_screen.dart';
 import 'package:medium_project/presentation/tab_box/profile/profile_screen.dart';

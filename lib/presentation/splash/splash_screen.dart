@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import '../../cubits/auth/auth/auth_cubit.dart';
+import '../../cubits/cubits/auth/auth_cubit.dart';
 import '../../utils/icons.dart';
 import '../app_routes.dart';
 

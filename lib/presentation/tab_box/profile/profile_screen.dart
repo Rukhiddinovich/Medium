@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_project/presentation/app_routes.dart';
 import 'package:medium_project/utils/colors.dart';
-
-import '../../../cubits/auth/auth/auth_cubit.dart';
+import '../../../cubits/cubits/auth/auth_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

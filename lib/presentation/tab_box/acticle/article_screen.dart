@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:medium_project/cubits/auth/tab_box/tab_box_cubit.dart';
 import 'package:medium_project/data/models/article/article_model.dart';
 import 'package:medium_project/utils/colors.dart';
 import 'package:medium_project/utils/icons.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-import '../../../cubits/auth/auth/auth_cubit.dart';
+import '../../../cubits/cubits/auth/auth_cubit.dart';
+import '../../../cubits/cubits/tab_box/tab_box_cubit.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
 
@@ -53,12 +53,14 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
             return Center(child: Lottie.asset(AppImages.loading));
           }
           return Container(
-              width: double.infinity,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
-              child: ListView(
-                children: [
-                  ...List.generate(articles.length, (index) {
+            width: double.infinity,
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
+            child: ListView(
+              children: [
+                ...List.generate(
+                  articles.length,
+                  (index) {
                     ArticleModel articleModel = articles[index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -73,7 +75,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
                             color: AppColors.C_6C63FF,
                             boxShadow: [
                               BoxShadow(
-                                  color: AppColors.black.withOpacity(0.6),
+                                  color: Colors.grey.withOpacity(0.6),
                                   blurRadius: 2)
                             ],
                           ),
@@ -85,14 +87,47 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
                                 width: 60.w,
                                 height: 60.h,
                               ),
+                              SizedBox(width: 15.w),
+                              SizedBox(
+                                width: 250.w,
+                                child: Text(articleModel.title,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.C_252525,
+                                        fontSize: 20.sp,
+                                        fontFamily: "Poppins")),
+                              ),
+                              Text(
+                                articleModel.username,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.C_252525,
+                                    fontSize: 15.sp,
+                                    fontFamily: "Poppins"),
+                              ),
+                              SizedBox(height: 30.h),
+                              Text(
+                                articleModel.description,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: AppColors.passiveTextColor,
+                                        fontSize: 16.sp),
+                              ),
                             ],
                           ),
                         ),
                       ),
                     );
-                  })
-                ],
-              ),
+                  },
+                ),
+              ],
+            ),
           );
         },
         listener: (context, state) {

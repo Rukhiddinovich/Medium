@@ -1,124 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:lottie/lottie.dart';
-// import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-// import '../../../utils/icons.dart';
-// import '../../app_routes.dart';
-// import '../widgets/global_text_field.dart';
-//
-// class LoginPage extends StatelessWidget {
-//   LoginPage({super.key, required this.onChanged});
-//
-//   final VoidCallback onChanged;
-//
-//   TextEditingController gmailController = TextEditingController();
-//   TextEditingController passwordController = TextEditingController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         toolbarHeight: 0,
-//         systemOverlayStyle:
-//             const SystemUiOverlayStyle(statusBarColor: Colors.white),
-//       ),
-//       backgroundColor: Colors.white,
-//       body: ListView(
-//         children: [
-//           SizedBox(height: 20.h),
-//           Lottie.asset(AppImages.login),
-//           // TextButton(
-//           //   onPressed: () {
-//           //     onChanged.call();
-//           //   },
-//           //   child: Text(
-//           //     "Sign Up",
-//           //     style: TextStyle(
-//           //         color: Color(0xFF4F8962),
-//           //         fontSize: 18.sp,
-//           //         fontWeight: FontWeight.w800),
-//           //   ),
-//           // ),
-//           GlobalTextField(
-//               hintText: "Enter email or phone",
-//               keyboardType: TextInputType.emailAddress,
-//               textInputAction: TextInputAction.next,
-//               textAlign: TextAlign.start,
-//               controller: gmailController),
-//           // TextButton(
-//           //   onPressed: () {
-//           //     Navigator.pushNamed(context, RouteNames.confirmGmail);
-//           //   },
-//           //   child: Text(
-//           //     "First Confirm your",
-//           //     style: TextStyle(
-//           //         color: Color(0xFF4F8962),
-//           //         fontSize: 18.sp,
-//           //         fontWeight: FontWeight.w800),
-//           //   ),
-//           // ),
-//           SizedBox(height: 30.h),
-//           GlobalTextField(
-//               hintText: "Password",
-//               keyboardType: TextInputType.visiblePassword,
-//               textInputAction: TextInputAction.next,
-//               textAlign: TextAlign.start,
-//               controller: passwordController),
-//           SizedBox(height: 20.h),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Container(
-//                 width: 120.w,
-//                 height: 1.h,
-//                 decoration: BoxDecoration(color: Colors.grey),
-//               ),
-//               SizedBox(width: 10.w),
-//               Text(
-//                 "OR",
-//                 style: TextStyle(
-//                     fontSize: 20.sp,
-//                     fontFamily: "Poppins",
-//                     fontWeight: FontWeight.w500,
-//                     color: Colors.grey),
-//               ),
-//               SizedBox(width: 10.w),
-//               Container(
-//                 width: 120.w,
-//                 height: 1.h,
-//                 decoration: BoxDecoration(color: Colors.grey),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 50.h),
-//           ZoomTapAnimation(
-//             onTap: () {
-//               Navigator.pushNamed(context, RouteNames.confirmGmail);
-//             },
-//             child: Container(
-//               width: 200.w,
-//               height: 50.h,
-//               decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(16.r),
-//                   color: Colors.blue),
-//               child: Center(
-//                 child: Text(
-//                   "Next",
-//                   style: TextStyle(
-//                       fontWeight: FontWeight.w500,
-//                       fontFamily: "Poppins",
-//                       fontSize: 20.sp,
-//                       color: Colors.white),
-//                 ),
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medium_project/utils/colors.dart';
 import 'package:medium_project/utils/icons.dart';
-import '../../../cubits/auth/auth/auth_cubit.dart';
+import '../../../cubits/cubits/auth/auth_cubit.dart';
 import '../../../data/local/storage_repository/storage_repository.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
 import '../../app_routes.dart';
@@ -203,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 controller: passwordController,
-                prefixIcon: const Icon(Icons.password),
+                prefixIcon: const Icon(Icons.key_outlined),
               ),
               SizedBox(height: 60.h),
               GlobalButton(
@@ -247,6 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           );
         },
+        // buildWhen: (previous, current){
+        //   return previous!=current;
+        // },
         listener: (context, state) {
           if (state is AuthLoggedState) {
             Navigator.pushReplacementNamed(context, RouteNames.tabBox);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medium_project/cubits/auth/tab_box/tab_box_cubit.dart';
 import 'package:medium_project/presentation/app_routes.dart';
 import 'package:medium_project/utils/text_theme.dart';
-import 'cubits/auth/auth/auth_cubit.dart';
+import 'cubits/cubits/auth/auth_cubit.dart';
+import 'cubits/cubits/tab_box/tab_box_cubit.dart';
 import 'data/local/storage_repository/storage_repository.dart';
 import 'data/network/api_service.dart';
 import 'data/repository/auth_repository.dart';
@@ -36,7 +36,11 @@ class App extends StatelessWidget {
               create: (context) =>
                   AuthCubit(authRepository: context.read<AuthRepository>()),
               lazy: true),
-          BlocProvider(create: (context) => TabBoxCubit(authRepository: context.read<AuthRepository>(),), lazy: true)
+          BlocProvider(
+              create: (context) => TabBoxCubit(
+                    authRepository: context.read<AuthRepository>(),
+                  ),
+              lazy: true)
         ],
         child: const MyApp(),
       ),
