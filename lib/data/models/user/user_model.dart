@@ -85,7 +85,7 @@ class UserModel {
     ''';
   }
 
-  Future<FormData> getFormData(XFile file) async {
+  Future<FormData> getFormData() async {
     XFile file = XFile(avatar);
     String fileName = file.path.split("/").last;
     return FormData.fromMap({

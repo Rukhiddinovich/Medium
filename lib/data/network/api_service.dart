@@ -108,7 +108,7 @@ class ApiService {
     try {
       response = await _dio.post(
         '/register',
-        // data: await userModel.getFormData(),
+        data: await userModel.getFormData(),
       );
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: response.data["data"]);

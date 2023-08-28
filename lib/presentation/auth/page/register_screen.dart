@@ -257,14 +257,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      showBottomSheetDialog();
-                    },
-                    child: Text(
+              TextButton(
+                onPressed: () {
+                  showBottomSheetDialog();
+                },
+                child: Row(
+                  children: [
+                    Text(
                       "Select image",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -272,15 +271,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: 18.sp,
                           color: AppColors.C_252525),
                     ),
-                  ),
-                  Icon(Icons.photo, size: 30.sp, color: AppColors.C_6C63FF),
-                  // if(file!=null)SizedBox(
-                  //     height: 80,
-                  //     child: Image.file(File(file!.path))),
-                ],
+                    SizedBox(width: 2.w),
+                    Icon(Icons.photo, size: 30.sp, color: AppColors.C_6C63FF),
+                  ],
+                ),
               ),
             ],
           );
+        },
+        buildWhen: (previous, current){
+          return previous!=current;
         },
         listener: (context, state) {
           if (state is AuthSendCodeSuccessState) {

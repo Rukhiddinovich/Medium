@@ -9,7 +9,8 @@ import 'package:medium_project/utils/colors.dart';
 import 'package:medium_project/utils/icons.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../cubits/cubits/auth/auth_cubit.dart';
-import '../../../cubits/cubits/tab_box/tab_box_cubit.dart';
+import '../../../cubits/cubits/website/website_cubit.dart';
+import '../../../data/models/status/form_status.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
 
@@ -43,11 +44,12 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.add_circle, color: AppColors.white),
+            icon:
+                Icon(Icons.search_outlined, color: AppColors.white, size: 25.r),
           )
         ],
       ),
-      body: BlocConsumer<TabBoxCubit, TabBoxState>(
+      body: BlocConsumer<WebsiteCubit, WebsiteState>(
         builder: (context, state) {
           if (state is AuthLoadingState) {
             return Center(child: Lottie.asset(AppImages.loading));
@@ -131,17 +133,22 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           );
         },
         listener: (context, state) {
-          if (state is TabBoxErrorState) {
-            showErrorMessage(message: state.errorText, context: context);
-          }
-          if (state is TabBoxSuccessState) {
-            setState(
-              () {
-                articles = state.articles;
-              },
+          if (state.status == FormStatus.failure) {
+            showErrorMessage(
+              message: state.statusText,
+              context: context,
             );
           }
+          if (state.statusText == "website_added") {
+            BlocProvider.of<WebsiteCubit>(context).getWebsites(context);
+          }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        backgroundColor: AppColors.C_6C63FF,
+        onPressed: () {},
+        child: Icon(Icons.add, color: Colors.white, size: 30.r),
       ),
     );
   }

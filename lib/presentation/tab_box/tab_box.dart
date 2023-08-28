@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_project/presentation/tab_box/profile/profile_screen.dart';
+import 'package:medium_project/presentation/tab_box/website/website_screen.dart';
 import 'package:medium_project/utils/colors.dart';
-import '../../cubits/cubits/tab_box/tab_box_cubit.dart';
+import '../../cubits/cubits/auth/auth_cubit.dart';
+import '../app_routes.dart';
+import 'articles/article_screen.dart';
 
 class TabBox extends StatefulWidget {
   const TabBox({super.key});
@@ -13,54 +17,58 @@ class TabBox extends StatefulWidget {
 }
 
 class _TabBoxState extends State<TabBox> {
+  List<Widget> screens = [];
 
-  int activeIndex=0;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    screens = [
+      const WebsiteScreen(),
+      const ArticlesScreen(),
+      const ProfileScreen(),
+    ];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<TabBoxCubit, TabBoxState>(
-        builder: (context, state) {
-          return context
-              .watch<TabBoxCubit>()
-              .screens[context.watch<TabBoxCubit>().currentScreenIndex];
-        },
+      body: BlocListener<AuthCubit, AuthState>(
+        child: screens[currentIndex],
         listener: (context, state) {
-          if (state is TabBoxArticleState) {
-            context.read<TabBoxCubit>().getArticles();
-            setState(() {
-              activeIndex = 0;
-            });
-          }
-          if (state is TabBoxProfileState) {
-            setState(() {
-              activeIndex = 1;
-            });
+          if (state is AuthUnAuthenticatedState) {
+            Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
           }
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.white,
-        backgroundColor: AppColors.C_6C63FF,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.news_solid,
-                  color: Colors.white, size: 30.sp),
-              label: "Calculate"),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.profile_circled,
-                  color: Colors.white, size: 30.sp),
-              label: "Login")
-        ],
-        currentIndex: activeIndex,
-        onTap: (value) {
-          activeIndex == 0
-              ? context.read<TabBoxCubit>().selectProfileState()
-              : context.read<TabBoxCubit>().selectHomeState();
-          setState(() {
-            activeIndex = value;
-          });
-        },
+      bottomNavigationBar: SizedBox(
+        height: 70.h,
+        child: BottomNavigationBar(
+          backgroundColor: AppColors.C_6C63FF,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.white,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.web, size: 30.r), label: "Website"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.article, size: 30.r), label: "Article"),
+            BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.profile_circled, size: 30.r),
+                label: "Profile"),
+          ],
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(
+              () {
+                currentIndex = index;
+              },
+            );
+          },
+        ),
       ),
     );
   }
