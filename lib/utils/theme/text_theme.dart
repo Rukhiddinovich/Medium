@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'colors.dart';
+import '../colors/colors.dart';
 
 class AppTheme {
   static ThemeData darkTheme = ThemeData(

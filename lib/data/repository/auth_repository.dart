@@ -1,33 +1,33 @@
 import '../local/storage_repository/storage_repository.dart';
 import '../models/universal_data.dart';
 import '../models/user/user_model.dart';
-import '../network/api_service.dart';
+import '../network/open_api_service.dart';
 
 class AuthRepository {
-  final ApiService apiService;
+  final OpenApiService openApiService;
 
-  AuthRepository({required this.apiService});
+  AuthRepository({required this.openApiService});
 
   Future<UniversalData> sendCodeToGmail({
     required String gmail,
     required String password,
   }) async =>
-      apiService.sendCodeToGmail(
+      openApiService.sendCodeToGmail(
         gmail: gmail,
         password: password,
       );
 
   Future<UniversalData> confirmCode({required String code}) async =>
-      apiService.confirmCode(code: code);
+      openApiService.confirmCode(code: code);
 
   Future<UniversalData> registerUser({required UserModel userModel}) async =>
-      apiService.registerUser(userModel: userModel);
+      openApiService.registerUser(userModel: userModel);
 
   Future<UniversalData> loginUser({
     required String gmail,
     required String password,
   }) async =>
-      apiService.loginUser(
+      openApiService.loginUser(
         gmail: gmail,
         password: password,
       );
@@ -38,8 +38,4 @@ class AuthRepository {
 
   Future<void> setToken(String newToken) async =>
       StorageRepository.putString("token", newToken);
-
-  Future<UniversalData> getArticles()async{
-    return apiService.getArticles();
-  }
 }

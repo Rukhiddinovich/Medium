@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_project/presentation/tab_box/profile/profile_screen.dart';
 import 'package:medium_project/presentation/tab_box/website/website_screen.dart';
-import 'package:medium_project/utils/colors.dart';
+import 'package:medium_project/utils/colors/colors.dart';
 import '../../cubits/cubits/auth/auth_cubit.dart';
 import '../app_routes.dart';
 import 'articles/article_screen.dart';

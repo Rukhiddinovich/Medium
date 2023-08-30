@@ -12,4 +12,5 @@ class AppImages {
   static const String registered = "assets/lotties/registered.json";
   static const String confirm = "assets/lotties/confirm.json";
   static const String loading = "assets/lotties/loading.json";
+  static const String add = "assets/lotties/add.json";
 }

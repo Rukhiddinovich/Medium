@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/colors/colors.dart';
 
-class GlobalTextField extends StatelessWidget {
-
-  GlobalTextField({
+class GlobalOnChangedTextField extends StatelessWidget {
+  const GlobalOnChangedTextField({
     Key? key,
     required this.hintText,
     required this.keyboardType,
@@ -12,18 +11,17 @@ class GlobalTextField extends StatelessWidget {
     required this.textAlign,
     this.obscureText = false,
     this.maxLine = 1,
-    required this.controller,
-    required this.prefixIcon,
+    required this.onChanged, required this.prefixIcon,
   }) : super(key: key);
 
   final String hintText;
-  final Icon prefixIcon;
-  TextInputType keyboardType;
-  TextInputAction textInputAction;
-  TextAlign textAlign;
+  final TextInputType keyboardType;
+  final TextInputAction textInputAction;
+  final TextAlign textAlign;
   final bool obscureText;
-  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
   final int maxLine;
+  final Icon prefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +49,7 @@ class GlobalTextField extends StatelessWidget {
         textInputAction: textInputAction,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        controller: controller,
+        onChanged: onChanged,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
           filled: true,

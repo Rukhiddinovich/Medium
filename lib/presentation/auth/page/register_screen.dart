@@ -6,10 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:medium_project/utils/icons.dart';
+import 'package:medium_project/utils/icons/icons.dart';
 import '../../../cubits/cubits/auth/auth_cubit.dart';
 import '../../../data/models/user/user_model.dart';
-import '../../../utils/colors.dart';
+import '../../../utils/colors/colors.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
 import '../../app_routes.dart';
 import '../widgets/gender_selector.dart';
@@ -92,14 +92,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 prefixIcon: const Icon(CupertinoIcons.person_alt_circle),
               ),
               SizedBox(height: 10.h),
-              // GlobalTextField(
-              //   hintText: "Contact",
-              //   keyboardType: TextInputType.phone,
-              //   textInputAction: TextInputAction.next,
-              //   textAlign: TextAlign.start,
-              //   controller: phoneController,
-              //   prefixIcon: const Icon(Icons.phone),
-              // ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.w),
                 decoration: BoxDecoration(

@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medium_project/cubits/cubits/website/website_cubit.dart';
 import 'package:medium_project/data/models/website/website_model.dart';
+import 'package:medium_project/presentation/app_routes.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+import '../../../cubits/cubits/website_fetch/website_fetch_cubit.dart';
 import '../../../data/models/status/form_status.dart';
-import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
+import '../../../utils/colors/colors.dart';
+import '../../../utils/constants/constants.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
 
 class WebsiteScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
 
   _init() async {
     Future.microtask(
-        () => BlocProvider.of<WebsiteCubit>(context).getWebsites(context));
+        () => BlocProvider.of<WebsiteFetchCubit>(context).getWebsites(context));
   }
 
   final ScrollController scrollController = ScrollController();
@@ -58,7 +59,7 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
           )
         ],
       ),
-      body: BlocConsumer<WebsiteCubit, WebsiteState>(
+      body: BlocConsumer<WebsiteFetchCubit, WebsiteFetchState>(
         builder: (context, state) {
           return GridView.builder(
             itemCount: state.websites.length,
@@ -69,7 +70,10 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
             itemBuilder: (context, index) {
               WebsiteModel website = state.websites[index];
               return ZoomTapAnimation(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, RouteNames.websiteDetail,
+                      arguments: website);
+                },
                 child: Container(
                   padding: EdgeInsets.all(5.r),
                   margin: EdgeInsets.all(10.r),
@@ -95,36 +99,58 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
                                 const CupertinoActivityIndicator(
                                     color: Colors.black),
                             errorWidget: (context, url, error) => Icon(
-                                Icons.image,
-                                color: Colors.white,
-                                size: 30.r),
+                                CupertinoIcons.photo_fill,
+                                color: Colors.black,
+                                size: 45.r),
                           ),
                         ),
                       ),
                       SizedBox(height: 5.h),
-                      Text(
-                        website.name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15.sp,
-                            fontFamily: "Poppins",
-                            color: Colors.black),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Name: ${website.name}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
+                                  fontFamily: "Poppins",
+                                  color: Colors.black),
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              "Phone: ${website.contact}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
+                                  fontFamily: "Poppins",
+                                  color: Colors.black),
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              "Author: ${website.author}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
+                                  fontFamily: "Poppins",
+                                  color: Colors.black),
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              "Link: ${website.link}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
+                                  fontFamily: "Poppins",
+                                  color: Colors.black),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(website.contact, style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15.sp,
-                          fontFamily: "Poppins",
-                          color: Colors.black),),
-                      Text(website.author, style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15.sp,
-                          fontFamily: "Poppins",
-                          color: Colors.black),),
-                      Text(website.link, style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15.sp,
-                          fontFamily: "Poppins",
-                          color: Colors.black),maxLines: 1,overflow: TextOverflow.ellipsis,),
                     ],
                   ),
                 ),
@@ -139,10 +165,15 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
               context: context,
             );
           }
-          if (state.statusText == "website_added") {
-            BlocProvider.of<WebsiteCubit>(context).getWebsites(context);
-          }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        backgroundColor: AppColors.C_6C63FF,
+        onPressed: () {
+          Navigator.pushNamed(context, RouteNames.websiteAdd);
+        },
+        child: Icon(Icons.add, color: Colors.white, size: 30.r),
       ),
     );
   }

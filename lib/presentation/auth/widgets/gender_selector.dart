@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../utils/colors.dart';
+import '../../../utils/colors/colors.dart';
 
 class GenderSelector extends StatelessWidget {
   const GenderSelector({

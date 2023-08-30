@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_project/cubits/cubits/profile/profile_cubit.dart';
 import 'package:medium_project/presentation/app_routes.dart';
 import 'package:medium_project/presentation/auth/widgets/global_text_field.dart';
-import 'package:medium_project/utils/colors.dart';
+import 'package:medium_project/utils/colors/colors.dart';
 import '../../../cubits/cubits/auth/auth_cubit.dart';
 import '../../../data/models/article/article_model.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';

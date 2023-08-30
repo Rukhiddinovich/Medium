@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
+import '../colors/colors.dart';
 
 class CustomCircularProgressIndicator extends StatelessWidget {
   final double? strokeWidth;

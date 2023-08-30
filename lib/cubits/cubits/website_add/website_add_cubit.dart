@@ -1,99 +1,56 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:medium_project/cubits/cubits/website_add/website_add_state.dart';
+import 'package:medium_project/data/repository/website_repository.dart';
 import '../../../data/models/status/form_status.dart';
 import '../../../data/models/universal_data.dart';
 import '../../../data/models/website/website_field_key.dart';
 import '../../../data/models/website/website_model.dart';
-import '../../../data/repository/website_repository.dart';
+import '../../../utils/constants/constants.dart';
 import '../../../utils/ui_utils/loading_dialog.dart';
 
-part 'website_state.dart';
-
-class WebsiteCubit extends Cubit<WebsiteState> {
-  WebsiteCubit({required this.websiteRepository})
+class WebsiteAddCubit extends Cubit<WebsiteAddState> {
+  WebsiteAddCubit({required this.websiteRepository})
       : super(
-          WebsiteState(
-            websiteModel: WebsiteModel(
-              name: "",
-              image: "",
-              author: "",
-              hashtag: "",
-              contact: "",
-              likes: "",
-              link: "",
-            ),
-            websites: const [],
-          ),
-        );
+    WebsiteAddState(
+      websiteModel: WebsiteModel(
+        name: "",
+        image: "",
+        author: "",
+        hashtag: "",
+        contact: "",
+        likes: "",
+        link: "",
+      ),
+    ),
+  );
 
   final WebsiteRepository websiteRepository;
 
-  createWebsite() async {
+  createWebsite(BuildContext context) async {
     emit(state.copyWith(
       status: FormStatus.loading,
       statusText: "",
     ));
-    UniversalData response =
-        await websiteRepository.createWebsite(state.websiteModel);
-    if (response.error.isEmpty) {
-      emit(
-        state.copyWith(
-          status: FormStatus.success,
-          statusText: "website_added",
-        ),
-      );
-    } else {
-      emit(state.copyWith(
-        status: FormStatus.failure,
-        statusText: response.error,
-      ));
-    }
-  }
 
-  getWebsites(BuildContext context) async {
-    emit(state.copyWith(
-      status: FormStatus.loading,
-      statusText: "",
-    ));
     showLoading(context: context);
-    UniversalData response = await websiteRepository.getWebsites();
-    if (context.mounted) hideLoading(dialogContext: context);
+    UniversalData response =
+    await websiteRepository.createWebsite(state.websiteModel);
+    if (context.mounted) hideLoading(context: context);
     if (response.error.isEmpty) {
       emit(
         state.copyWith(
           status: FormStatus.success,
-          statusText: "get_website",
-          websites: response.data as List<WebsiteModel>,
+          statusText: StatusTextConstants.websiteAdd,
         ),
       );
     } else {
-      emit(state.copyWith(
-        status: FormStatus.failure,
-        statusText: response.error,
-      ));
-    }
-  }
-
-  getWebsiteById(int websiteId) async {
-    emit(state.copyWith(
-      status: FormStatus.loading,
-      statusText: "",
-    ));
-    UniversalData response = await websiteRepository.getWebsiteById(websiteId);
-    if (response.error.isEmpty) {
       emit(
         state.copyWith(
-          status: FormStatus.success,
-          statusText: "get_website_by_id",
-          websiteDetail: response.data as WebsiteModel,
+          status: FormStatus.failure,
+          statusText: response.error,
         ),
       );
-    } else {
-      emit(state.copyWith(
-        status: FormStatus.failure,
-        statusText: response.error,
-      ));
     }
   }
 
@@ -143,6 +100,9 @@ class WebsiteCubit extends Cubit<WebsiteState> {
 
     debugPrint("WEBSITE: ${currentWebsite.toString()}");
 
-    emit(state.copyWith(websiteModel: currentWebsite));
+    emit(state.copyWith(
+      websiteModel: currentWebsite,
+      status: FormStatus.pure,
+    ));
   }
 }
